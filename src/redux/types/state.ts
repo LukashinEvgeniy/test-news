@@ -1,6 +1,8 @@
 import { moduleName as moduleApp } from '../ducks/app';
-import { AppRecord } from './entities';
+import { moduleName as moduleNewsCategories } from '../ducks/newsCategory';
+import { AppRecord, NewsCategory } from './entities';
 
 export type AppState = {
   [moduleApp]: AppRecord;
+  [moduleNewsCategories]: NewsCategory[];
 };

@@ -31,6 +31,9 @@ const enhance = connect(mapStateToProps, mapDispatchToProps);
 type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 class Routes extends Component<Props> {
+  async componentDidMount() {
+    await this.props.initApp();
+  }
 
   render() {
     return (
@@ -39,6 +42,7 @@ class Routes extends Component<Props> {
           <Layout exact path={routes.main} component={Main} />
           <Route exact path={routes.auth} component={Auth} />
           <ProtectedRoute exact path={routes.news} component={News} />
+          <ProtectedRoute exact path={`${routes.news}/:authorId?/:page?`} component={News} />
           {/* <Route component={NotFound} /> */}
         </Switch>
       </ConnectedRouter>

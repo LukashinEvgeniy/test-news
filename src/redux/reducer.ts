@@ -3,6 +3,7 @@ import { connectRouter } from 'connected-react-router';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import appReducer, { moduleName as appModule } from './ducks/app';
+import newsCategoryReducer, { moduleName as newsCategoryModule } from './ducks/newsCategory';
 import { persistStorageKey } from '../config/constants';
 
 const persistConfig = {
@@ -17,6 +18,7 @@ const reducer = (history: any) =>
     combineReducers({
       router: connectRouter(history),
       [appModule]: appReducer,
+      [newsCategoryModule]: newsCategoryReducer,
     })
   );
 
