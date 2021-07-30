@@ -113,7 +113,8 @@ export const getNews = async (selectedAuthor: number, paginationActive: number, 
 
 const newsApi = {
     getCategories,
-    getNews
+    getNews,
+    getAuthors
 };
 
 export default newsApi;

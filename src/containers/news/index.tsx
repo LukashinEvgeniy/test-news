@@ -12,7 +12,7 @@ import { AppState } from "../../redux/types/state";
 import { getNewsCategoires } from "../../redux/selectors";
 import { useState, useEffect, useMemo } from "react";
 import newsApi from "../../lib/api/news";
-import { NewsType } from "../../redux/types/entities";
+import { NewsAuthor, NewsType } from "../../redux/types/entities";
 import NewsItem from "./components/news-item";
 import { useLocation, useParams } from "react-router-dom";
 import history from "../../history";
@@ -30,6 +30,7 @@ const News = () => {
   }));
 
   const [news, setNews] = useState<NewsType[]>([]);
+  const [authors, setAuthors] = useState<NewsAuthor[]>([]);
   const [paginationCount, setPaginationCount] = useState(0);
   const [paginationActive, setPaginationActive] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState(1);
@@ -42,6 +43,12 @@ const News = () => {
   const query = useQuery();
 
   useEffect(() => {
+    const loadData = async () => {
+      const response = await newsApi.getAuthors();
+
+      setAuthors(response);
+    };
+    loadData();
     authorId && setSelectedAuthor(parseInt(authorId));
     page && setPaginationActive(parseInt(page));
 
@@ -113,7 +120,7 @@ const News = () => {
             }}
             aria-label="Выберете автора"
           >
-            {newsCategory.map((item) => (
+            {authors.map((item) => (
               <option key={item.id} value={item.id}>
                 {item.name}
               </option>
